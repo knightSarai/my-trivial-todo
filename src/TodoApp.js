@@ -1,11 +1,8 @@
 import React from 'react';
-import useTodoState from './hooks/useTodoState';
-import { makeStyles } from '@material-ui/core/styles';
+import {TodosProvider} from './context/todos.context';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Grid from '@material-ui/core/Grid';
+import {Typography, AppBar, Toolbar, Grid, makeStyles} from '@material-ui/core';
+
 
 import TodoForm from './TodoForm';
 import TodoList from './TodoList';
@@ -28,9 +25,7 @@ const useStyles = makeStyles({
   });
 
 export default function TodoApp() {
-    const initialTodos = [];
-    const {todos, addTodo, editTodo, changeTodoState, removeTodo} = useTodoState(initialTodos); 
-    
+
     const classes = useStyles();
     return (
         <Paper className={classes.Paper} elevation={0}>
@@ -41,15 +36,12 @@ export default function TodoApp() {
             </AppBar>
             <Grid className={classes.Grid} container justify={"center"}>
                 <Grid item xs={11} md={8} lg={4}>
-                    <TodoForm addTodo={addTodo} />
-                    <TodoList todos={todos} removeTodo={removeTodo} changeTodoState={changeTodoState} editTodo={editTodo}/>
+                    <TodosProvider>
+                        <TodoForm/>
+                        <TodoList/>
+                    </TodosProvider>
                 </Grid>
             </Grid>
         </Paper>
     )
 }
-
-// - TodoApp
-//     - TodoForm
-//     - TodoList
-//         - TodoItem

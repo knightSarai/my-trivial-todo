@@ -1,4 +1,5 @@
-import React from 'react'
+import React, {useContext} from 'react';
+import {TodoContext} from './context/todos.context';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
@@ -11,11 +12,16 @@ const useStyle = makeStyles({
     }
 })
 
-export default function TodoForm({addTodo}) {
+export default function TodoForm() {
     const [value, handleChange, reset] = useInputState("");
+    const {dispatch} = useContext(TodoContext);
     const onSubmit = e => {
         e.preventDefault();
-        addTodo(value);
+        dispatch({type: 'ADD',
+            payload: {
+                task: value
+            }
+        })
         reset();
     }
     const classes = useStyle();

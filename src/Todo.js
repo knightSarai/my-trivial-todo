@@ -1,4 +1,5 @@
-import React from 'react'
+import React, {useContext} from 'react';
+import {TodoContext} from './context/todos.context';
 import ListItem from '@material-ui/core/ListItem';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
@@ -20,30 +21,24 @@ const useStyle = makeStyles({
     }
 })
 
-export default function Todo({
-    task,
-    completed,
-    removeTodo, 
-    id, 
-    changeTodoState, 
-    editTodo}) 
-    {
+export default function Todo({task, completed, id}) {
+    const {dispatch} = useContext(TodoContext);
     const [editMode, toggle] = useToggle(false);
     const classes = useStyle();
     
     if (editMode) {
         return (
             <ListItem className={classes.ListItem}>
-                <EditTodoForm task={task} id={id} editTodo={editTodo} toggle={toggle}/>
+                <EditTodoForm task={task} id={id} toggle={toggle}/>
             </ListItem>
         )
     }
     return (
         <ListItem className={classes.ListItem}>
-            <Checkbox tabIndex={-1} checked={completed} onClick={() => changeTodoState(id)}/>
+            <Checkbox tabIndex={-1} checked={completed} onClick={() => dispatch({type: 'TOGGLE', payload:{id}})}/>
             <div className={completed ? classes.lineThrow : ""}>{task}</div>
             <ListItemSecondaryAction>
-                <IconButton onClick={()=>{removeTodo(id)}}>
+                <IconButton onClick={()=> dispatch({type: 'REMOVE', payload:{id}})}>
                     <DeleteIcon />
                 </IconButton>
                 <IconButton onClick={()=> toggle()}>
