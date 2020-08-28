@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, memo} from 'react';
 import {DispatchContext} from './context/todos.context';
 import ListItem from '@material-ui/core/ListItem';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -21,11 +21,10 @@ const useStyle = makeStyles({
     }
 })
 
-export default function Todo({task, completed, id}) {
+function Todo({task, completed, id}) {
     const dispatch = useContext(DispatchContext);
     const [editMode, toggle] = useToggle(false);
     const classes = useStyle();
-    
     if (editMode) {
         return (
             <ListItem className={classes.ListItem}>
@@ -48,3 +47,5 @@ export default function Todo({task, completed, id}) {
         </ListItem>
     )
 }
+
+export default memo(Todo);

@@ -5,14 +5,12 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import useInputState from './hooks/useInputState';
 
-
 const useStyle = makeStyles({
     EditTodoForm: {
         marginLeft: "1rem",
         width: "100%"
     }
 })
-
 
 export default function EditTodoForm({task, id, toggle}) {
     const dispatch = useContext(DispatchContext);
