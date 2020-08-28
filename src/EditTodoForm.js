@@ -1,5 +1,5 @@
 import React, {useRef, useEffect, useContext} from 'react';
-import {TodoContext} from './context/todos.context';
+import {DispatchContext} from './context/todos.context';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -15,7 +15,7 @@ const useStyle = makeStyles({
 
 
 export default function EditTodoForm({task, id, toggle}) {
-    const {dispatch} = useContext(TodoContext);
+    const dispatch = useContext(DispatchContext);
     const [value,  handleChange, reset] = useInputState(task);
     const ref = useRef();
 

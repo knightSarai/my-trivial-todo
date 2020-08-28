@@ -8,7 +8,7 @@ import Divider from '@material-ui/core/Divider';
 import Todo from './Todo'
 
 export default function TodoList() {
-    const {todos} = useContext(TodoContext);
+    const todos = useContext(TodoContext);
     const renderedTodo = todos.map((todo, idx) => (
         <React.Fragment key={todo.id}>
             <Todo

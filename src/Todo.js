@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {TodoContext} from './context/todos.context';
+import {DispatchContext} from './context/todos.context';
 import ListItem from '@material-ui/core/ListItem';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
@@ -22,7 +22,7 @@ const useStyle = makeStyles({
 })
 
 export default function Todo({task, completed, id}) {
-    const {dispatch} = useContext(TodoContext);
+    const dispatch = useContext(DispatchContext);
     const [editMode, toggle] = useToggle(false);
     const classes = useStyle();
     
